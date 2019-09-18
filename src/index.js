@@ -1,12 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import {store} from './redux/store'
+import App from "./containers/App";
+import {Provider} from 'react-redux';
+//内部会第一次调用reducer函数得到初始state
 
-ReactDOM.render(<App />, document.getElementById('root'));
+/*这时候变成了Provider来帮忙管理这个store对象*/
+ReactDOM.render(
+    (<Provider store={store}>
+        <App/>
+    </Provider>)
+,document.getElementById("root"));
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+/*function render(){
+    ReactDOM.render(<App store={store}/>,document.getElementById("root"));
+}*/
+/*
+//初始化需要渲染一次
+render();
+//订阅监听（store中的状态变化，那么就会重新触发，自动调用，重新渲染,）
+store.subscribe(render);*/
